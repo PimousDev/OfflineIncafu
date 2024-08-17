@@ -6,7 +6,7 @@ class ProductModel extends ValidableModel{
 	static MINIMUM_QUANTITY = 1;
 
 	/** @type {number|undefined} */
-	#barCode;
+	#barcode;
 	/** @type {number|undefined} */
 	#code;
 	/** @type {string|undefined} */
@@ -17,14 +17,14 @@ class ProductModel extends ValidableModel{
 	#quantity;
 
 	/**
-	 * @param {number|undefined} barCode
+	 * @param {number|undefined} barcode
 	 * @param {number|undefined} code
 	 * @param {string|undefined} designation
 	 * @param {number} unitPrice
 	 * @param {number} quantity
 	 */
-	constructor(barCode, code, designation, unitPrice, quantity){
-		this.barCode = barCode
+	constructor(barcode, code, designation, unitPrice, quantity){
+		this.barcode = barcode
 		this.code = code;
 		this.designation = designation;
 		this.unitPrice = unitPrice ?? 0;
@@ -32,7 +32,7 @@ class ProductModel extends ValidableModel{
 	}
 
 	/* GETTERS */
-	get barCode(){ return this.#barCode; }
+	get barcode(){ return this.#barcode; }
 	get code(){ return this.#code; }
 	get designation(){ return this.#designation; }
 	get unitPrice(){ return this.#unitPrice; }
@@ -42,11 +42,11 @@ class ProductModel extends ValidableModel{
 	}
 
 	isValid(){
-		return (this.barCode === undefined || this.barCode > -1)
+		return (this.barcode === undefined || this.barcode > -1)
 			&& (this.code === undefined || this.code > -1)
 			&& (this.designation === undefined || this.designation.length > 0)
 			&& (
-				this.barCode !== undefined
+				this.barcode !== undefined
 				|| this.code !== undefined
 				|| this.designation !== undefined
 			)
@@ -55,8 +55,8 @@ class ProductModel extends ValidableModel{
 	}
 
 	/* SETTERS */
-	set barCode(barCode){
-		this.#barCode = barCode === undefined ? Math.floor(barCode) : undefined;
+	set barcode(barcode){
+		this.#barcode = barcode === undefined ? Math.floor(barcode) : undefined;
 	}
 	set code(code){
 		this.#code = code === undefined ? Math.floor(code) : undefined;
@@ -71,7 +71,7 @@ class ProductModel extends ValidableModel{
 		if(!this.isValid())
 			throw Error("Trying to merge with an invalid Product;")
 
-		if(this.barCode === undefined) this.barCode = product.barCode;
+		if(this.barcode === undefined) this.barcode = product.barcode;
 		if(this.code === undefined) this.code = product.code;
 		if(this.designation === undefined)
 			this.designation = product.designation;

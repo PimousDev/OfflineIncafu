@@ -37,11 +37,11 @@ class SaleModel extends ValidableModel{
 	 */
 	getProduct(index){ return this.products[index]; }
 	/**
-	 * @param {number} barCode 
+	 * @param {number} barcode 
 	 * @returns {ProductModel|undefined}
 	 */
-	getProductByBarCode(barCode){
-		return this.products.find(p => p.barCode === barCode);
+	getProductByBarcode(barcode){
+		return this.products.find(p => p.barcode === barcode);
 	}
 	/**
 	 * @param {number} code 
@@ -71,7 +71,7 @@ class SaleModel extends ValidableModel{
 	 */
 	mergeProduct(product){
 		const foundElements = [
-			this.getProductByBarCode(product.barCode),
+			this.getProductByBarcode(product.barcode),
 			this.getProductByCode(product.code),
 			this.getProductByDesignation(product.designation)
 		];
