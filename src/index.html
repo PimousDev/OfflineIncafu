@@ -6,9 +6,51 @@
 
 	<title>Offline Incafu</title>
 
-	<script src="scripts/index.mjs" defer></script>
+	<link rel="stylesheet" href="styles/base.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/view/productTableView.css">
+
+	<script type="module" src="scripts/index.mjs" defer></script>
 </head>
 <body>
-	
+	<main id="main">
+
+	</main>
+
+	<!-- TEMPLATES --------------------------------------------------------- -->
+	<!-- ProductTableView -->
+	<template id="productTableView">
+		<link rel="stylesheet" href="styles/view/productTableView.css">
+
+		<table class="pt">
+			<thead class="pt--tableHeader">
+				<tr>
+					<th class="pt--header">Code-barres</th>
+					<th class="pt--header">Code</th>
+					<th class="pt--header pt--header__longest">Désignation</th>
+					<th class="pt--header">Prix unit.</th>
+					<th class="pt--header">Quantité</th>
+					<th class="pt--header">Prix</th>
+				</tr>
+			</thead>
+			<tbody id="products">
+				<tr>
+					<td colspan="6">
+						<input id="new" type="text" required>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</template>
+	<template id="productView">
+		<tr>
+			<td><input type="text" name="barcode" pattern="^[0-9]{4,}$"></td>
+			<td><input type="text" name="code" pattern="^[0-9]{3}$"></td>
+			<td><input type="text" name="designation"></td>
+			<td><input type="number" name="priceUnit" min="0" required></td>
+			<td><input type="number" name="quantity" min="1" value="1" required></td>
+			<td><span>0.00</span>€</td>
+		</tr>
+	</template>
 </body>
 </html>
