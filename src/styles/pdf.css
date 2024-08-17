@@ -1,0 +1,100 @@
+@media not print{
+	.pdf{
+		display: none;
+	}
+}
+@media print{
+	.content{
+		display: none;
+	}
+}
+
+/* ---- PAGES ---- */
+.pdf{
+	width: var(--pdf-width);
+}
+.pdf--page{
+	display: flex;
+	flex-direction: column;
+
+	width: var(--pdf-width);
+	height: var(--pdf-height);
+}
+@page{
+	margin: var(--pdf-margin);
+	size: var(--pdf-size);
+}
+
+/* ---- ELEMENTS ---- */
+.pdf p{
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+.pdf--table th, .pdf--table td{
+	font-size: 0.75rem;
+}
+
+.pdf--header, .pdf--pageFooter{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	width: 100%;
+	min-height: var(--pdf-margin);
+
+	text-align: center;
+}
+
+/* HEADER */
+.pdf--header{
+	margin-bottom: var(--pdf-margin);
+	height: 3cm;
+}
+.pdf--logo{
+	height: 100%;
+}
+.pdf--title{
+	flex: 1;
+}
+
+/* FOOTER */
+.pdf--pageFooter{
+	margin-top: auto;
+	padding-top: var(--pdf-margin);
+}
+.pdf--pageFooter p{
+	width: 100%;
+}
+
+/* TABLE */
+.pdf--table{
+	width: 100%;
+
+	border-collapse: collapse;
+}
+.pdf--table, .pdf--table thead, .pdf--table tbody{
+	border: var(--pdf-outerBorder) solid var(--color-primary);
+}
+.pdf--table th, .pdf--table td{
+	padding: var(--pdf-cellPadding);
+	
+	border: var(--pdf-innerBorder) solid var(--color-primary);
+}
+.pdf--table th{
+
+	color: var(--color-onPrimaryContainer);
+	white-space: nowrap;
+	background-color: var(--color-primaryContainer);
+}
+.pdf--tableHeader__max{	
+	width: 100%;
+
+	text-align: start;
+}
+.pdf--saleHeader td{
+	font-weight: bold;
+}
+.pdf--saleHeader:not(:first-child) td{
+	border-top-width: calc(var(--pdf-innerBorder)*2);
+	border-top-style: double;
+}

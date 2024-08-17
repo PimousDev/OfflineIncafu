@@ -1,0 +1,55 @@
+@import url("reset.css");
+
+:root{
+	/* Spaces */
+	--space-thin: calc(var(--space)/32);
+	--space-xxtiny: calc(var(--space)/16);
+	--space-xtiny: calc(var(--space)/8);
+	--space-tiny: calc(var(--space)/4);
+	--space-small: calc(var(--space)/2);
+	--space: 32px;
+	--space-large: calc(var(--space)*2);
+
+	/* PDF Units */
+	--pdf-size: A4;
+	--pdf-margin: .5in;
+	--pdf-width: 21cm;
+	--pdf-height: 29.7cm;
+	--pdf-outerBorder: 1mm;
+	--pdf-innerBorder: 0.5mm;
+	--pdf-cellPadding: 2.5mm;
+
+	/* Colors */
+	--color-primary: #415f91;
+	--color-primaryContainer: #d6e3ff;
+	--color-onPrimaryContainer: #001b3e;
+
+	--color-secondaryContainer: #565f71;
+	
+	--color-surface: #f9f9ff;
+	--color-surfaceContainerLow: #f3f3fa;
+	--color-surfaceContainer: #ededf4;
+	--color-onSurface: #191c20;
+
+	--color-outline: #74777f;
+
+	--color-shadow: #00000048;
+}
+
+*{
+	color: var(--color-onSurface);
+	font-family: 'Gill Sans', 'Gill Sans MT', sans-serif !important;
+
+	box-sizing: border-box;
+}
+
+body{
+	width: 100%;
+	min-height: 100vh;
+}
+
+h1{
+	color: var(--color-primary);
+	font-size: 2rem;
+	line-height: 3rem;
+}

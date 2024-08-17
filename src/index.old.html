@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Offline Incafu</title>
+
+	<link rel="stylesheet" href="/css/base.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/pdf.css">
+	<script src="/js/main.mjs" type="module" defer></script>
+</head>
+
+<body>
+	<!-- ----- MAIN CONTENT ----- -->
+	<main class="content">
+		<header class="content--header">
+			<hgroup>
+				<h1>Offline Incafu</h1>
+				<p>Phare de la Coubre</p>
+			</hgroup>
+
+			<div>
+				<p>Total des totaux: <span id="id="total"">0.00</span>€</p>
+				<p>Nombre de ventes: <span id="saleCount"></span></p>
+				<p>Nombre d'articles total: <span id="productCount">0</span></p>
+			</div>
+
+			<form id="save" action="/" method="POST">
+				<input type="date" name="date" required>
+				<input type="text" name="info" placeholder="Informations complémentaires">
+				<input type="submit" value="Sauvegarder">
+			</form>
+		</header>
+
+		<section id="sales" class="sale--group">
+			<button id="addSale">Ajouter une vente</button>
+		</section>
+	</main>
+
+	<!-- ----- PDF VERSION ----- -->
+	<aside id="pdf" class="pdf">
+		<section class="pdf--page">
+			<header class="pdf--header">
+				<img class="pdf--logo" src="/img/PhareDeLaCoubre_logo.gif" alt="Logo du Phare de la Coubre">
+				<hgroup class="pdf--title">
+					<h1>Offline Incafu : Cloture</h1>
+					<p>CLOTURE DES VENTES MANUELLES (HORS CONNEXION).</p>
+					<p>CAISSE DU 00/00/0000 DE 00h00 à 00h00.</p>
+					<p>TOTAL DES VENTES: 0.00€ sur 0 vente(s) comptant 0 article(s).</p>
+				</hgroup>
+			</header>
+
+			<table class="pdf--table">
+				<thead>
+					<tr>
+						<th colspan="4"></th>
+						<th>Nombre d'articles</th>
+						<th>Total</th>
+						<th>Règlement</th>
+					</tr>
+					<tr>
+						<th>Code-barre</th>
+						<th>Code</th>
+						<th class="pdf--tableHeader__max">Désignation</th>
+						<th>Prix unit.</th>
+						<th>Quantité</th>
+						<th>Prix total</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="sales" class="pdf--sales"></tbody>
+			</table>
+
+			<footer class="pdf--pageFooter">
+				<p>Généré par Offline Incafu le 00/00/0000 à 00h00.</p>
+			</footer>
+		</section>
+	</aside>
+
+	<!-- ----- TEMPLATES ----- -->
+	<template id="newSale">
+		<link rel="stylesheet" href="/css/base.css">
+		<link rel="stylesheet" href="/css/sale.css">
+
+		<table class="sale--table">
+			<thead>
+				<tr>
+					<th style="--productsTable-size: 128px;">Code-barres</th>
+					<th style="--productsTable-size: 48px;">Code</th>
+					<th style="--productsTable-size: calc(256px + 128px);">Désignation</th>
+					<th style="--productsTable-size: 92px;">Prix unit.</th>
+					<th>Quantité</th>
+					<th>Prix</th>
+				</tr>
+			</thead>
+			<tbody id="products" class="sale--products">
+				<tr>
+					<td colspan="6">
+						<input id="newProduct" class="sale--input" type="text" required>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="sale--info">
+			<p>Total: <span id="total" class="sale--infoData">0.00</span>€</p>
+			<p>Nombre d'articles: <span id="count" class="sale--infoData">0</span></p>
+
+			<div>
+				<label for="settlement">Règlement: </label>
+				<select id="settlement" name="settlement" required>
+					<option hidden disabled selected></option>
+					<option value="Espèces">Espèces</option>
+					<option value="Carte bancaire">Carte bancaire</option>
+					<option value="Chèque">Chèque</option>
+				</select>
+			</div>
+
+			<button id="validate">Validate</button>
+		</div>
+	</template>
+	<template id="newProduct">
+		<tr>
+			<td class="sale--data__centered"><input class="sale--input" type="text" name="barcode"></td>
+			<td class="sale--data__centered"><input class="sale--input" type="text" name="code"></td>
+			<td><input class="sale--input" type="text" name="designation"></td>
+			<td class="sale--data__centered"><input class="sale--input" type="number" name="priceUnit" min="0" required></td>
+			<td class="sale--data__centered"><input class="sale--input" type="number" name="quantity" min="1" value="1" required></td>
+			<td class="sale--data__centered"><span class="sale--price">0.00</span>€</td>
+		</tr>
+	</template>
+
+	<template id="pdfSaleHeader">
+		<tr class="pdf--saleHeader">
+			<td colspan="4"></td>
+			<td class="pdf--count">2</td>
+			<td class="pdf--total">9.50€</td>
+			<td class="pdf--settlement">Espèces</td>
+		</tr>
+	</template>
+	<template id="pdfProduct">
+		<tr>
+			<td class="pdf--barcode"></td>
+			<td class="pdf--code"></td>
+			<td class="pdf--designation">P'tits secrets des Phares</td>
+			<td class="pdf--priceUnit">7.50€</td>
+			<td class="pdf--quantity">1</td>
+			<td class="pdf--price">7.50€</td>
+		</tr>
+	</template>
+</body>
+</html>
