@@ -1,12 +1,14 @@
-class ProductTableView extends HTMLElement{
+import View from "./View.mjs";
+import ViewEvent from "../ViewEvent.mjs";
+
+class ProductTableView extends View{
 
 	/** @type {HTMLTemplateElement} */
 	static HTML_TABLE_TEMPLATE = document.getElementById("productTableView");
 	/** @type {HTMLTemplateElement} */
 	static HTML_PRODUCT_TEMPLATE = document.getElementById("productView");
 	/**
-	 * @typedef ProductTableEvents
-	 * @type {object}
+	 * @typedef {object} ProductTableEvents
 	 * @property {string} new
 	 */
 	/** @type {ProductTableEvents} */
@@ -15,8 +17,7 @@ class ProductTableView extends HTMLElement{
 	};
 
 	/**
-	 * @typedef ProductTableElements
-	 * @type {object}
+	 * @typedef {object} ProductTableElements
 	 * @property {HTMLInputElement|undefined} newInput
 	 */
 	/** @type {ProductTableElements} */
@@ -49,9 +50,8 @@ class ProductTableView extends HTMLElement{
 		if(event.key !== "Enter" || !this.#elements.newInput.checkValidity())
 			return;
 
-		this.dispatchEvent(new InputEvent(ProductTableView.#events.new, {
-			data: this.#elements.newInput.value,
-			inputType: "insertText"
+		this.dispatchEvent(new ViewEvent(ProductTableView.#events.new, {
+			view: this, data: this.#elements.newInput.value
 		}));
 
 		this.#elements.newInput.value = "";
