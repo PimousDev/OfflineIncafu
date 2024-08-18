@@ -4,17 +4,17 @@ import ViewEvent from "../ViewEvent.mjs";
 class ProductTableView extends View{
 
 	/** @type {HTMLTemplateElement} */
-	static HTML_TABLE_TEMPLATE = document.getElementById("productTableView");
+	static #HTML_TABLE_TEMPLATE = document.getElementById("productTableView");
 	/** @type {HTMLTemplateElement} */
-	static HTML_PRODUCT_TEMPLATE = document.getElementById("productView");
+	static #HTML_PRODUCT_TEMPLATE = document.getElementById("productView");
 	/**
 	 * @typedef {object} ProductTableEvents
 	 * @property {string} new
 	 */
 	/** @type {ProductTableEvents} */
-	static #events = {
+	static #events = Object.freeze({
 		new: "new"
-	};
+	});
 
 	/**
 	 * @typedef {object} ProductTableElements
@@ -41,6 +41,15 @@ class ProductTableView extends View{
 		);
 	}
 
+	// GETTERS
+	static get HTML_TABLE_TEMPLATE(){
+		return ProductTableView.#HTML_TABLE_TEMPLATE;
+	}
+	static get events(){
+		return ProductTableView.#HTML_PRODUCT_TEMPLATE;
+	}
+	static get events(){ return ProductTableView.#events; }
+
 	// LISTENERS
 	/**
 	 * @param {KeyboardEvent} event
@@ -50,7 +59,7 @@ class ProductTableView extends View{
 		if(event.key !== "Enter" || !this.#elements.newInput.checkValidity())
 			return;
 
-		this.dispatchEvent(new ViewEvent(ProductTableView.#events.new, {
+		this.dispatchEvent(new ViewEvent(ProductTableView.events.new, {
 			view: this, data: this.#elements.newInput.value
 		}));
 
