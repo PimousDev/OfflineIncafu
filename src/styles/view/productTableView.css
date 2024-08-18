@@ -10,7 +10,7 @@ oi-producttable{
 	height: 100%;
 
 	border-collapse: collapse;
-	border-bottom: var(--space-thin) solid var(--color-primaryContainer);
+	/*border-bottom: var(--space-thin) solid var(--color-primaryContainer);*/
 }
 
 .pt--tableHeader{
@@ -22,7 +22,6 @@ oi-producttable{
 	white-space: nowrap;
 	word-break: keep-all;
 	background-color: var(--color-primaryContainer);
-	border: var(--space-xtiny) solid transparent;
 }
 .pt--header{
 	height: var(--space);
@@ -31,21 +30,16 @@ oi-producttable{
 .pt--header__longest{
 	width: 100%;
 }
-
-
-
-
-
-
-
-
-.sale--tableHeader__longer{
-	width: auto;
-}
-
-.sale--table tbody{
+.pt--tableBody{
 	border: var(--space-xtiny) solid transparent;
 }
+
+
+
+
+
+
+
 .sale--table tbody tr:nth-child(2n){
 	background-color: var(--color-surfaceContainer);
 }
