@@ -2,8 +2,12 @@ import ValidableModel from "./ValidableModel.mjs";
 
 class ProductModel extends ValidableModel{
 
+	/** @type {string} */
+	static #CODE_PATTERN = "^[0-9]{3}$";
+	/** @type {string} */
+	static #BARCODE_PATTERN = "^[0-9]+$";
 	/** @type {number} */
-	static MINIMUM_QUANTITY = 1;
+	static #MINIMUM_QUANTITY = 1;
 
 	/** @type {?number} */
 	#barcode;
@@ -36,6 +40,10 @@ class ProductModel extends ValidableModel{
 	}
 
 	/* GETTERS */
+	static get BARCODE_PATTERN(){ return this.#BARCODE_PATTERN; }
+	static get CODE_PATTERN(){ return this.#CODE_PATTERN; }
+	static get MINIMUM_QUANTITY(){ return this.#MINIMUM_QUANTITY; }
+
 	get barcode(){ return this.#barcode; }
 	get code(){ return this.#code; }
 	get designation(){ return this.#designation; }
