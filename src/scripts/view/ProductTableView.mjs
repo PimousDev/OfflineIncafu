@@ -45,7 +45,7 @@ class ProductTableView extends View{
 	static get HTML_TABLE_TEMPLATE(){
 		return ProductTableView.#HTML_TABLE_TEMPLATE;
 	}
-	static get events(){
+	static get HTML_PRODUCT_TEMPLATE(){
 		return ProductTableView.#HTML_PRODUCT_TEMPLATE;
 	}
 	static get events(){ return ProductTableView.#events; }
