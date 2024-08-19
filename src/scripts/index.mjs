@@ -1,9 +1,10 @@
+import SaleModel from "./model/SaleModel.mjs";
+import ProductTableController from "./controller/ProductTableController.mjs";
 import ProductTableView from "./view/ProductTableView.mjs";
 
-const test = new ProductTableView();
+const model = new SaleModel([], null);
+const controller = new ProductTableController();
+const view = new ProductTableView();
 
-test.addEventListener("input", e => {
-	console.log("Hey!")
-});
-
-document.getElementById("main").appendChild(test);
+controller.setControlled(view, model);
+document.getElementById("main").appendChild(view);
