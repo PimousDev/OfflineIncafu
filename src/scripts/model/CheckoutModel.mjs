@@ -5,24 +5,24 @@ class CheckoutModel extends ValidableModel{
 
 	/** @type {Date} */
 	#startDate;
-	/** @type {Date} */
-	#endDate;
+	/** @type {?Date} */
+	#endDate = null;
 	/** @type {string} */
 	#information;
 	/** @type {SaleModel[]} */
 	#sales;
 
 	/**
-	 * @param {Date} startDate
-	 * @param {string} information
-	 * @param {SaleModel[]} sales
+	 * @param {Date} [startDate]
+	 * @param {string} [information]
+	 * @param {SaleModel[]} [sales]
 	 */
-	constructor(startDate, information, sales){
+	constructor(startDate = new Date(), information = "", sales = []){
 		super();
 
-		this.startDate = startDate ?? new Date();
-		this.information = information ?? "";
-		this.sales = sales ?? [];
+		this.startDate = startDate;
+		this.information = information;
+		this.sales = sales;
 	}
 
 	// GETTERS
@@ -49,6 +49,7 @@ class CheckoutModel extends ValidableModel{
 
 	// SETTERS
 	set startDate(startDate){ this.#startDate = startDate; }
+	set endDate(endDate){ this.#endDate = endDate; }
 	set information(information){ this.#information = information; }
 }
 

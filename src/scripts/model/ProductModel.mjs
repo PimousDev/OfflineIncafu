@@ -5,11 +5,11 @@ class ProductModel extends ValidableModel{
 	/** @type {number} */
 	static MINIMUM_QUANTITY = 1;
 
-	/** @type {number|undefined} */
+	/** @type {?number} */
 	#barcode;
-	/** @type {number|undefined} */
+	/** @type {?number} */
 	#code;
-	/** @type {string|undefined} */
+	/** @type {?string} */
 	#designation;
 	/** @type {number} */
 	#unitPrice;
@@ -17,13 +17,15 @@ class ProductModel extends ValidableModel{
 	#quantity;
 
 	/**
-	 * @param {number|undefined} barcode
-	 * @param {number|undefined} code
-	 * @param {string|undefined} designation
-	 * @param {number} unitPrice
-	 * @param {number} quantity
+	 * @param {?number} barcode
+	 * @param {?number} code
+	 * @param {?string} designation
+	 * @param {number} [unitPrice]
+	 * @param {number} [quantity]
 	 */
-	constructor(barcode, code, designation, unitPrice, quantity){
+	constructor(barcode, code, designation,
+		unitPrice = 0, quantity = ProductModel.MINIMUM_QUANTITY
+	){
 		super();
 
 		this.barcode = barcode

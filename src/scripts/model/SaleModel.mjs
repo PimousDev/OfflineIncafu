@@ -9,18 +9,18 @@ class SaleModel extends ValidableModel{
 
 	/** @type {ProductModel[]} */
 	#products;
-	/** @type {number} */
+	/** @type {?number} */
 	#settlement;
 
 	/**
-	 * @param {ProductModel[]} products 
-	 * @param {number} settlement 
+	 * @param {ProductModel[]} [products]
+	 * @param {?number} [settlement]
 	 */
-	constructor(products, settlement){
+	constructor(products = [], settlement = null){
 		super();
 
-		this.#products = products ?? [];
-		this.settlement = settlement ?? SaleModel.SETTLEMENT_CASH;
+		this.#products = products;
+		this.settlement = settlement;
 	}
 
 	// GETTERS
