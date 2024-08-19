@@ -17,7 +17,9 @@ class SaleModel extends ValidableModel{
 	 * @param {number} settlement 
 	 */
 	constructor(products, settlement){
-		this.products = products ?? [];
+		super();
+
+		this.#products = products ?? [];
 		this.settlement = settlement ?? SaleModel.SETTLEMENT_CASH;
 	}
 

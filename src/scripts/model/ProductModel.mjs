@@ -24,6 +24,8 @@ class ProductModel extends ValidableModel{
 	 * @param {number} quantity
 	 */
 	constructor(barcode, code, designation, unitPrice, quantity){
+		super();
+
 		this.barcode = barcode
 		this.code = code;
 		this.designation = designation;

@@ -18,6 +18,8 @@ class CheckoutModel extends ValidableModel{
 	 * @param {SaleModel[]} sales
 	 */
 	constructor(startDate, information, sales){
+		super();
+
 		this.startDate = startDate ?? new Date();
 		this.information = information ?? "";
 		this.sales = sales ?? [];
