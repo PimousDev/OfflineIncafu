@@ -62,8 +62,8 @@ class ProductModel extends ValidableModel{
 				|| this.code !== null
 				|| this.designation !== null
 			)
-			&& unitPrice >= 0
-			&& quantity >= ProductModel.MINIMUM_QUANTITY;
+			&& this.unitPrice >= 0
+			&& this.quantity >= ProductModel.MINIMUM_QUANTITY;
 	}
 
 	/* SETTERS */
