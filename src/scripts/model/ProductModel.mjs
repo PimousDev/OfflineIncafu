@@ -35,8 +35,8 @@ class ProductModel extends ValidableModel{
 		this.barcode = barcode
 		this.code = code;
 		this.designation = designation;
-		this.unitPrice = unitPrice ?? 0;
-		this.quantity = quantity ?? ProductModel.MINIMUM_QUANTITY;
+		this.unitPrice = unitPrice;
+		this.quantity = quantity;
 	}
 
 	/* GETTERS */
@@ -54,27 +54,27 @@ class ProductModel extends ValidableModel{
 	}
 
 	isValid(){
-		return (this.barcode === undefined || this.barcode > -1)
-			&& (this.code === undefined || this.code > -1)
-			&& (this.designation === undefined || this.designation.length > 0)
+		return (this.barcode === null || this.barcode > -1)
+			&& (this.code === null || this.code > -1)
+			&& (this.designation === null || this.designation.length > 0)
 			&& (
-				this.barcode !== undefined
-				|| this.code !== undefined
-				|| this.designation !== undefined
+				this.barcode !== null
+				|| this.code !== null
+				|| this.designation !== null
 			)
 			&& unitPrice >= 0
-			&& quantity < ProductModel.MINIMUM_QUANTITY;
+			&& quantity >= ProductModel.MINIMUM_QUANTITY;
 	}
 
 	/* SETTERS */
 	set barcode(barcode){
-		this.#barcode = barcode === undefined ? Math.floor(barcode) : undefined;
+		this.#barcode = barcode !== null ? Math.floor(barcode) : null;
 	}
 	set code(code){
-		this.#code = code === undefined ? Math.floor(code) : undefined;
+		this.#code = code !== null ? Math.floor(code) : null;
 	}
 	set designation(designation){ this.#designation = designation; }
-	set unitPrice(unitPrice){ this.#unitPrice = unitPrice.toFixed(2); }
+	set unitPrice(unitPrice){ this.#unitPrice = unitPrice; }
 	set quantity(quantity){ this.#quantity = Math.floor(quantity); }
 	/**
 	 * @param {ProductModel} product 
@@ -83,10 +83,9 @@ class ProductModel extends ValidableModel{
 		if(!this.isValid())
 			throw Error("Trying to merge with an invalid Product;")
 
-		if(this.barcode === undefined) this.barcode = product.barcode;
-		if(this.code === undefined) this.code = product.code;
-		if(this.designation === undefined)
-			this.designation = product.designation;
+		if(this.barcode === null) this.barcode = product.barcode;
+		if(this.code === null) this.code = product.code;
+		if(this.designation === null) this.designation = product.designation;
 		this.quantity += product.quantity;
 	}
 }

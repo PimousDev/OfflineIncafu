@@ -44,7 +44,7 @@ class CheckoutModel extends ValidableModel{
 	getSale(index){ return this.products[index]; }
 
 	isValid(){
-		return this.date !== undefined && this.sales.every(s => s.isValid());
+		return this.startDate !== null && this.sales.every(s => s.isValid());
 	}
 
 	// SETTERS

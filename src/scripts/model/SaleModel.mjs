@@ -40,21 +40,21 @@ class SaleModel extends ValidableModel{
 	getProduct(index){ return this.products[index]; }
 	/**
 	 * @param {number} barcode 
-	 * @returns {ProductModel|undefined}
+	 * @returns {?ProductModel}
 	 */
 	getProductByBarcode(barcode){
 		return this.products.find(p => p.barcode === barcode);
 	}
 	/**
 	 * @param {number} code 
-	 * @returns {ProductModel|undefined}
+	 * @returns {?ProductModel}
 	 */
 	getProductByCode(code){
 		return this.products.find(p => p.code === code);
 	}
 	/**
 	 * @param {string} designation
-	 * @returns {ProductModel|undefined}
+	 * @returns {?ProductModel}
 	 */
 	getProductByDesignation(designation){
 		return this.products.find(p => p.designation === designation);
@@ -78,10 +78,8 @@ class SaleModel extends ValidableModel{
 			this.getProductByDesignation(product.designation)
 		];
 
-		if(foundElements.every(p => p === undefined))
-			this.products.push(product);
-		else
-			foundElements.find(p => p !== undefined).mergeWith(product)
+		if(foundElements.every(p => p === null)) this.products.push(product);
+		else foundElements.find(p => p !== null).mergeWith(product)
 
 	}
 }
