@@ -43,21 +43,27 @@ class SaleModel extends ValidableModel{
 	 * @returns {?ProductModel}
 	 */
 	getProductByBarcode(barcode){
-		return this.products.find(p => p.barcode === barcode) ?? null;
+		return this.products.find(p =>
+			p.barcode !== null && p.barcode === barcode
+		) ?? null;
 	}
 	/**
 	 * @param {number} code 
 	 * @returns {?ProductModel}
 	 */
 	getProductByCode(code){
-		return this.products.find(p => p.code === code) ?? null;
+		return this.products.find(p =>
+			p.code !== null && p.code === code
+		) ?? null;
 	}
 	/**
 	 * @param {string} designation
 	 * @returns {?ProductModel}
 	 */
 	getProductByDesignation(designation){
-		return this.products.find(p => p.designation === designation) ?? null;
+		return this.products.find(p =>
+			p.designation !== null && p.designation === designation
+		) ?? null;
 	}
 
 	isValid(){
