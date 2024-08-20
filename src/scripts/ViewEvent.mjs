@@ -5,14 +5,12 @@ import View from "./view/View.mjs";
  */
 class ViewEvent extends Event{
 
-	/** @type {View} */
-	#view;
 	/** @type {?T} */
 	#data;
 
 	/**
 	 * @typedef {object} VEInit
-	 * @property {View} view
+	 * @property {View} target
 	 * @property {?T} data
 	 *
 	 * @typedef {EventInit & VEInit} ViewEventInit
@@ -24,12 +22,12 @@ class ViewEvent extends Event{
 	constructor(type, eventInitDict){
 		super(type, eventInitDict);
 
-		this.#view = eventInitDict.view;
 		this.#data = eventInitDict.data;
 	}
 
 	// GETTERS
-	get view(){ return this.#view; }
+	/** @type {View} */
+	get currentTarget(){ return super.currentTarget; }
 	get data(){ return this.#data; }
 }
 
