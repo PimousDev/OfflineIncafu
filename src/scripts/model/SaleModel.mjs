@@ -80,7 +80,6 @@ class SaleModel extends ValidableModel{
 
 		if(foundElements.every(p => p === null)) this.products.push(product);
 		else foundElements.find(p => p !== null).mergeWith(product)
-
 	}
 }
 

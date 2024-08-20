@@ -1,3 +1,4 @@
+import ProductModel from "../model/ProductModel.mjs";
 import SaleModel from "../model/SaleModel.mjs";
 import ProductTableView from "../view/ProductTableView.mjs";
 import ViewEvent from "../ViewEvent.mjs";
@@ -27,7 +28,16 @@ class ProductTableController{
 	 * @param {ViewEvent<string>} event 
 	 */
 	#newProductEntered(event){
-		console.log(event);
+		const product = new ProductModel(null, null, null);
+
+		if(event.data.match(ProductModel.CODE_PATTERN))
+			product.code = event.data;
+		else if(event.data.match(ProductModel.BARCODE_PATTERN))
+			product.barcode = event.data;
+		else
+			product.designation = event.data;
+
+		this.#controlled.get(event.currentTarget).mergeProduct(product);
 	}
 }
 
