@@ -5,7 +5,7 @@ class ProductModel extends ValidableModel{
 	/** @type {string} */
 	static #CODE_PATTERN = "^[0-9]{3}$";
 	/** @type {string} */
-	static #BARCODE_PATTERN = "^[0-9]+$";
+	static #BARCODE_PATTERN = "^[0-9]{4,}$";
 	/** @type {number} */
 	static #MINIMUM_QUANTITY = 1;
 

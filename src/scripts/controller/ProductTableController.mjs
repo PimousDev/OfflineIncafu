@@ -17,10 +17,14 @@ class ProductTableController{
 		const update = this.#controlled.has(view);
 		this.#controlled.set(view, model);
 
-		if(!update)
+		if(!update){
 			view.addEventListener(ProductTableView.events.new,
 				this.#newProductEntered.bind(this)
 			);
+			view.addEventListener(ProductTableView.events.change,
+				this.#productChanged.bind(this)
+			);
+		}
 	}
 
 	// LISTENERS
@@ -40,6 +44,28 @@ class ProductTableController{
 
 		sale.mergeProduct(product);
 		event.currentTarget.renderProducts(sale.products);
+	}
+	/**
+	 * @param {ViewEvent<ProductTableView, {
+	 * 	product: ProductModel
+	 * 	name: string,
+	 * 	value: string
+	 * }>} event 
+	 */
+	#productChanged(event){
+		switch(event.data.name){
+			case "barcode":
+			case "code":
+				if(event.data.value.length === 0 || isNaN(event.data.value))
+					event.data.value = null;
+				break;
+		}
+
+		event.data.product[event.data.name] = event.data.value;
+		event.currentTarget.renderProduct(event.data.product,
+			this.#controlled.get(event.currentTarget)
+				.products.indexOf(event.data.product)
+		);
 	}
 }
 

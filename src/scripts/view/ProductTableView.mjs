@@ -11,10 +11,12 @@ class ProductTableView extends View{
 	/**
 	 * @typedef {object} ProductTableEvents
 	 * @property {string} new
+	 * @property {string} change
 	 */
 	/** @type {ProductTableEvents} */
 	static #events = Object.freeze({
-		new: "new"
+		new: "new",
+		change: "change"
 	});
 
 	/**
@@ -64,13 +66,17 @@ class ProductTableView extends View{
 		const rows = new Map(this.#elements.productRows);
 
 		for(const [i, p] of products.entries()){
-			let row = rows.get(p);
+			let row = this.#elements.productRows.get(p);
 			rows.delete(p);
 
 			if(row === undefined){
 				/** @type {HTMLTableRowElement} */
 				row = ProductTableView.#HTML_PRODUCT_TEMPLATE
 					.content.querySelector("tr").cloneNode(true);
+
+				row.addEventListener("input",
+					this.#inputValueChanged.bind(this, p)
+				);
 
 				this.#elements.productRows.set(p, row);
 				this.#elements.tableBody.insertRow(i).replaceWith(row);
@@ -81,16 +87,26 @@ class ProductTableView extends View{
 					this.#elements.tableBody.children.item(i)
 				);
 
-			row.querySelector("[name=\"barcode\"]").value = p.barcode;
-			row.querySelector("[name=\"code\"]").value = p.code;
-			row.querySelector("[name=\"designation\"]").value = p.designation;
-			row.querySelector("[name=\"unitPrice\"]").value = p.unitPrice;
-			row.querySelector("[name=\"quantity\"]").value = p.quantity;
-			row.querySelector(".pt--rowPrice").textContent = p.getPrice()
-				.toFixed(2);
+			this.renderProduct(p, i);
 		}
 
 		for(const row of rows.values()) row.remove();
+	}
+	/**
+	 * @param {ProductModel} product
+	 */
+	renderProduct(product){
+		const row = this.#elements.productRows.get(product);
+
+		// FIXME: Wrong values still updated.
+
+		row.querySelector("[name=\"barcode\"]").value = product.barcode;
+		row.querySelector("[name=\"code\"]").value = product.code;
+		row.querySelector("[name=\"designation\"]").value = product.designation;
+		row.querySelector("[name=\"unitPrice\"]").value = product.unitPrice;
+		row.querySelector("[name=\"quantity\"]").value = product.quantity;
+		row.querySelector(".pt--rowPrice").textContent = product.getPrice()
+			.toFixed(2);
 	}
 
 	// LISTENERS
@@ -106,6 +122,27 @@ class ProductTableView extends View{
 		}));
 
 		this.#elements.newInput.value = "";
+	}
+	/**
+	 * @param {ProductModel} product
+	 * @param {InputEvent} event
+	 */
+	#inputValueChanged(product, event){
+		if(!(event.currentTarget instanceof HTMLTableRowElement)
+			|| Array.from(event.currentTarget.querySelector("input"))
+				.every(element => 
+					element instanceof HTMLInputElement
+					&& element.checkValidity()
+				)
+		) return;
+
+		this.dispatchEvent(new ViewEvent(ProductTableView.events.change, {
+			data: {
+				product: product,
+				name: event.target.name,
+				value: event.target.value
+			}
+		}));
 	}
 }
 customElements.define("oi-producttable", ProductTableView);
