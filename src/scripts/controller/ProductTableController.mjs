@@ -28,6 +28,7 @@ class ProductTableController{
 	 * @param {ViewEvent<ProductTableView, string>} event 
 	 */
 	#newProductEntered(event){
+		const sale = this.#controlled.get(event.currentTarget);
 		const product = new ProductModel(null, null, null);
 
 		if(event.data.match(ProductModel.CODE_PATTERN))
@@ -37,7 +38,8 @@ class ProductTableController{
 		else
 			product.designation = event.data;
 
-		this.#controlled.get(event.currentTarget).mergeProduct(product);
+		sale.mergeProduct(product);
+		event.currentTarget.renderProducts(sale.products);
 	}
 }
 
