@@ -1,6 +1,7 @@
 import View from "./view/View.mjs";
 
 /**
+ * @template {View} V
  * @template T
  */
 class ViewEvent extends Event{
@@ -10,7 +11,6 @@ class ViewEvent extends Event{
 
 	/**
 	 * @typedef {object} VEInit
-	 * @property {View} target
 	 * @property {?T} data
 	 *
 	 * @typedef {EventInit & VEInit} ViewEventInit
@@ -26,7 +26,7 @@ class ViewEvent extends Event{
 	}
 
 	// GETTERS
-	/** @type {View} */
+	/** @type {V} */
 	get currentTarget(){ return super.currentTarget; }
 	get data(){ return this.#data; }
 }

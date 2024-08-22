@@ -25,7 +25,7 @@ class ProductTableController{
 
 	// LISTENERS
 	/**
-	 * @param {ViewEvent<string>} event 
+	 * @param {ViewEvent<ProductTableView, string>} event 
 	 */
 	#newProductEntered(event){
 		const product = new ProductModel(null, null, null);

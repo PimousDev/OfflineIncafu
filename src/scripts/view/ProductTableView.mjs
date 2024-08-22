@@ -53,14 +53,13 @@ class ProductTableView extends View{
 	// LISTENERS
 	/**
 	 * @param {KeyboardEvent} event
-	 * @param {HTMLInputElement} event.target
 	 */
 	#newInputKeyPressed(event){
 		if(event.key !== "Enter" || !this.#elements.newInput.checkValidity())
 			return;
 
 		this.dispatchEvent(new ViewEvent(ProductTableView.events.new, {
-			view: this, data: this.#elements.newInput.value
+			data: this.#elements.newInput.value
 		}));
 
 		this.#elements.newInput.value = "";
