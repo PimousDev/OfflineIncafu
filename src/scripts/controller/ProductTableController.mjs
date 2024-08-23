@@ -48,20 +48,21 @@ class ProductTableController{
 	/**
 	 * @param {ViewEvent<ProductTableView, {
 	 * 	product: ProductModel
-	 * 	name: string,
-	 * 	value: string
+	 * 	inputs: {name: string, value: string}[]
 	 * }>} event 
 	 */
 	#productChanged(event){
-		switch(event.data.name){
-			case "barcode":
-			case "code":
-				if(event.data.value.length === 0 || isNaN(event.data.value))
-					event.data.value = null;
-				break;
-		}
+		for(const input of event.data.inputs){
+			switch(input.name){
+				case "barcode":
+				case "code":
+					if(input.value.length === 0 || isNaN(input.value))
+						input.value = null;
+					break;
+			}
 
-		event.data.product[event.data.name] = event.data.value;
+			event.data.product[input.name] = input.value;
+		}
 		event.currentTarget.renderProduct(event.data.product,
 			this.#controlled.get(event.currentTarget)
 				.products.indexOf(event.data.product)

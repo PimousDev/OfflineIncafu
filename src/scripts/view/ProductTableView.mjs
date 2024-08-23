@@ -58,6 +58,14 @@ class ProductTableView extends View{
 	}
 	static get events(){ return ProductTableView.#events; }
 
+	/**
+	 * @param {ParentNode} node
+	 * @returns {HTMLInputElement[]}
+	 */
+	getInputs(node){
+		return Array.from(node.querySelectorAll("input"));
+	}
+
 	// FUNCTIONS
 	/**
 	 * @param {ProductModel[]} products
@@ -98,8 +106,6 @@ class ProductTableView extends View{
 	renderProduct(product){
 		const row = this.#elements.productRows.get(product);
 
-		// FIXME: Wrong values still updated.
-
 		row.querySelector("[name=\"barcode\"]").value = product.barcode;
 		row.querySelector("[name=\"code\"]").value = product.code;
 		row.querySelector("[name=\"designation\"]").value = product.designation;
@@ -114,8 +120,12 @@ class ProductTableView extends View{
 	 * @param {KeyboardEvent} event
 	 */
 	#newInputKeyPressed(event){
-		if(event.key !== "Enter" || !this.#elements.newInput.checkValidity())
-			return;
+		if(event.key !== "Enter"
+			|| this.#elements.newInput.disabled
+			|| this.getInputs(this.#elements.tableBody).some(element =>
+				!element.checkValidity()
+			)
+		) return;
 
 		this.dispatchEvent(new ViewEvent(ProductTableView.events.new, {
 			data: this.#elements.newInput.value
@@ -128,19 +138,21 @@ class ProductTableView extends View{
 	 * @param {InputEvent} event
 	 */
 	#inputValueChanged(product, event){
-		if(!(event.currentTarget instanceof HTMLTableRowElement)
-			|| Array.from(event.currentTarget.querySelector("input"))
-				.every(element => 
-					element instanceof HTMLInputElement
-					&& element.checkValidity()
-				)
-		) return;
+		if(!(event.currentTarget instanceof HTMLTableRowElement)) return;
+		const inputElements = this.getInputs(event.currentTarget);
+
+		if(inputElements.some(element => !element.checkValidity())){
+			this.#elements.newInput.disabled = true;
+			return;
+		}else this.#elements.newInput.disabled = false;
 
 		this.dispatchEvent(new ViewEvent(ProductTableView.events.change, {
 			data: {
 				product: product,
-				name: event.target.name,
-				value: event.target.value
+				inputs: inputElements.map(e => ({
+					name: e.name,
+					value: e.value
+				}))
 			}
 		}));
 	}
