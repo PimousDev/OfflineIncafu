@@ -33,22 +33,3 @@ oi-producttable{
 .pt--tableBody{
 	border: var(--space-xtiny) solid transparent;
 }
-
-
-
-
-
-
-
-.sale--table tbody tr:nth-child(2n){
-	background-color: var(--color-surfaceContainer);
-}
-.sale--table td{
-	border: var(--space-xtiny) solid transparent;
-}
-.sale--data__centered, .sale--data__centered input{
-	text-align: center;
-}
-.sale--input{
-	width: 100%;
-}

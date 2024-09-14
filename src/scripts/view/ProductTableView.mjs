@@ -66,6 +66,16 @@ class ProductTableView extends View{
 		return Array.from(node.querySelectorAll("input"));
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
+	checkValidity(){
+		return Array.from(this.#elements.productRows.values()).every(
+			row => this.getInputs(row).every(input => input.checkValidity()),
+			this
+		);
+	}
+
 	// FUNCTIONS
 	/**
 	 * @param {ProductModel[]} products
