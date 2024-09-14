@@ -19,10 +19,10 @@ class ProductTableController{
 
 		if(!update){
 			view.addEventListener(ProductTableView.events.new,
-				this.#newProductEntered.bind(this)
+				this.newProductEntered.bind(this)
 			);
 			view.addEventListener(ProductTableView.events.change,
-				this.#productChanged.bind(this)
+				this.productChanged.bind(this)
 			);
 		}
 	}
@@ -31,7 +31,7 @@ class ProductTableController{
 	/**
 	 * @param {ViewEvent<ProductTableView, string>} event 
 	 */
-	#newProductEntered(event){
+	newProductEntered(event){
 		const sale = this.#controlled.get(event.currentTarget);
 		const product = new ProductModel(null, null, null);
 
@@ -51,7 +51,7 @@ class ProductTableController{
 	 * 	inputs: {name: string, value: string}[]
 	 * }>} event 
 	 */
-	#productChanged(event){
+	productChanged(event){
 		for(const input of event.data.inputs){
 			switch(input.name){
 				case "barcode":
