@@ -1,38 +1,32 @@
 import ProductModel from "../model/ProductModel.mjs";
 import SaleModel from "../model/SaleModel.mjs";
 import ProductTableView from "../view/ProductTableView.mjs";
+import Controller from "./Controller.mjs";
 import ViewEvent from "../ViewEvent.mjs";
 
-class ProductTableController{
+/**
+ * @extends {Controller<ProductTableView, SaleModel>}
+ */
+class ProductTableController extends Controller{
 
-	/** @type {Map<ProductTableView, SaleModel>} */
-	#controlled = new Map();
+	/** @type {Map<string, CallableFunction>} */
+	#listeners = new Map([
+		[ProductTableView.events.new, this.newProductEntered.bind(this)],
+		[ProductTableView.events.change, this.productChanged.bind(this)]
+	]);
 
 	// SETTERS
 	/**
-	 * @param {ProductTableView} view 
-	 * @param {SaleModel} model 
+	 * @returns {Map<string, CallableFunction>}
 	 */
-	setControlled(view, model){
-		const update = this.#controlled.has(view);
-		this.#controlled.set(view, model);
-
-		if(!update){
-			view.addEventListener(ProductTableView.events.new,
-				this.newProductEntered.bind(this)
-			);
-			view.addEventListener(ProductTableView.events.change,
-				this.productChanged.bind(this)
-			);
-		}
-	}
+	getListeners(){ return this.#listeners; }
 
 	// LISTENERS
 	/**
 	 * @param {ViewEvent<ProductTableView, string>} event 
 	 */
 	newProductEntered(event){
-		const sale = this.#controlled.get(event.currentTarget);
+		const sale = this.getControlled(event.currentTarget);
 		const product = new ProductModel(null, null, null);
 
 		if(event.data.match(ProductModel.CODE_PATTERN))
@@ -64,7 +58,7 @@ class ProductTableController{
 			event.data.product[input.name] = input.value;
 		}
 		event.currentTarget.renderProduct(event.data.product,
-			this.#controlled.get(event.currentTarget)
+			this.getControlled(event.currentTarget)
 				.products.indexOf(event.data.product)
 		);
 	}
