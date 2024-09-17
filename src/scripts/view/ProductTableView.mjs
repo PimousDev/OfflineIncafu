@@ -138,6 +138,7 @@ class ProductTableView extends View{
 		) return;
 
 		this.dispatchEvent(new ViewEvent(ProductTableView.events.new, {
+			composed: true,
 			data: this.#elements.newInput.value
 		}));
 
@@ -157,6 +158,7 @@ class ProductTableView extends View{
 		}else this.#elements.newInput.disabled = false;
 
 		this.dispatchEvent(new ViewEvent(ProductTableView.events.change, {
+			composed: true,
 			data: {
 				product: product,
 				inputs: inputElements.map(e => ({
