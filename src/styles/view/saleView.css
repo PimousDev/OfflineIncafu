@@ -1,0 +1,20 @@
+oi-sale{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: start;
+
+	padding: var(--space-tiny);
+}
+
+/* SIDE PANE */
+.sp{
+	display: flex;
+	flex-direction: column;
+	
+	padding: var(--space-tiny);
+	gap: var(--space-tiny);
+}
+.sp > *{
+	margin: 0;
+}

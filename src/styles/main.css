@@ -34,14 +34,6 @@
 	margin-inline: auto;
 	width: fit-content;
 }
-
-oi-sale{
-	display: flex;
-	flex-direction: row;
-
-	padding: var(--space-tiny);
-	gap: var(--space-tiny);
-}
 .sale--group > oi-sale:not(:last-of-type){
 	border-bottom: var(--space-thin) solid var(--color-outline);
 }

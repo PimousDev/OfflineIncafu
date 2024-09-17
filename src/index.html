@@ -7,8 +7,10 @@
 	<title>Offline Incafu</title>
 
 	<link rel="stylesheet" href="styles/base.css">
-	<link rel="stylesheet" href="styles/main.css">
+
+	<!-- VIEW STYLES ------------------------------------------------------- -->
 	<link rel="stylesheet" href="styles/view/productTableView.css">
+	<link rel="stylesheet" href="styles/view/saleView.css">
 
 	<script type="module" src="scripts/index.mjs" defer></script>
 </head>
@@ -17,7 +19,7 @@
 
 	</main>
 
-	<!-- TEMPLATES --------------------------------------------------------- -->
+	<!-- VIEW TEMPLATES ---------------------------------------------------- -->
 	<!-- ProductTableView -->
 	<template id="productTableView">
 		<link rel="stylesheet" href="styles/view/productTableView.css">
@@ -49,6 +51,30 @@
 			<td><input type="number" name="quantity" min="1" required></td>
 			<td><span class="pt--rowPrice">0.00</span>€</td>
 		</tr>
+	</template>
+
+	<!-- SaleView -->
+	<template id="saleView">
+		<link rel="stylesheet" href="styles/view/saleView.css">
+
+		<oi-producttable></oi-producttable>
+
+		<aside class="sp">
+			<p>Total: <span id="total">0.00</span>€</p>
+			<p>Nombre d'articles: <span id="count">0</span></p>
+
+			<div>
+				<label for="settlement">Règlement: </label>
+				<select id="settlement" name="settlement" required>
+					<option hidden disabled selected></option>
+					<option value="cash">Espèces</option>
+					<option value="creditCard">Carte bancaire</option>
+					<option value="cheque">Chèque</option>
+				</select>
+			</div>
+
+			<input type="submit" id="validate" name="validate" value="Validate"/>
+		</aside>
 	</template>
 </body>
 </html>
