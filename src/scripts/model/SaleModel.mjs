@@ -66,18 +66,29 @@ class SaleModel extends ValidableModel{
 		) ?? null;
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	isValid(){
-		return this.products > 0
+		return this.getCount() > 0
 			&& this.products.every(p => p.isValid())
 			&& this.settlement > -1
 	}
 
 	// SETTERS
-	set settlement(settlement){ this.#settlement = settlement; }
+	set settlement(settlement){
+		if(this.validated) console.warn("Tried to modify a validated sale.");
+		else this.#settlement = settlement;
+	}
 	/**
 	 * @param {ProductModel} product 
 	 */
 	mergeProduct(product){
+		if(this.validated){
+			console.warn("Tried to modify a validated sale.");
+			return;
+		}
+
 		const foundElements = [
 			this.getProductByBarcode(product.barcode),
 			this.getProductByCode(product.code),
@@ -86,6 +97,12 @@ class SaleModel extends ValidableModel{
 
 		if(foundElements.every(p => p === null)) this.products.push(product);
 		else foundElements.find(p => p !== null).mergeWith(product)
+	}
+
+	validate(){
+		super.validate();
+
+		if(this.validated) this.products.forEach(p => p.validate());
 	}
 }
 

@@ -43,14 +43,29 @@ class CheckoutModel extends ValidableModel{
 	 */
 	getSale(index){ return this.products[index]; }
 
+	/**
+	 * @returns {boolean}
+	 */
 	isValid(){
 		return this.startDate !== null && this.sales.every(s => s.isValid());
 	}
 
 	// SETTERS
-	set startDate(startDate){ this.#startDate = startDate; }
-	set endDate(endDate){ this.#endDate = endDate; }
-	set information(information){ this.#information = information; }
+	set startDate(startDate){
+		if(this.validated)
+			console.warn("Tried to modify a validated checkout.");
+		else this.#startDate = startDate;
+	}
+	set endDate(endDate){
+		if(this.validated)
+			console.warn("Tried to modify a validated checkout.");
+		else this.#endDate = endDate;
+	}
+	set information(information){
+		if(this.validated)
+			console.warn("Tried to modify a validated checkout.");
+		else this.#information = information;
+	}
 }
 
 export default CheckoutModel;

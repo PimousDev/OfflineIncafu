@@ -53,6 +53,9 @@ class ProductModel extends ValidableModel{
 		return this.#unitPrice*this.#quantity;
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	isValid(){
 		return (this.barcode === null || this.barcode > -1)
 			&& (this.code === null || this.code > -1)
@@ -68,19 +71,33 @@ class ProductModel extends ValidableModel{
 
 	/* SETTERS */
 	set barcode(barcode){
-		this.#barcode = barcode !== null ? Math.floor(barcode) : null;
+		if(this.validated) console.warn("Tried to modify a validated product.");
+		else this.#barcode = barcode !== null ? Math.floor(barcode) : null;
 	}
 	set code(code){
-		this.#code = code !== null ? Math.floor(code) : null;
+		if(this.validated) console.warn("Tried to modify a validated product.");
+		else this.#code = code !== null ? Math.floor(code) : null;
 	}
-	set designation(designation){ this.#designation = designation; }
-	set unitPrice(unitPrice){ this.#unitPrice = unitPrice; }
-	set quantity(quantity){ this.#quantity = Math.floor(quantity); }
+	set designation(designation){
+		if(this.validated) console.warn("Tried to modify a validated product.");
+		else this.#designation = designation;
+	}
+	set unitPrice(unitPrice){
+		if(this.validated) console.warn("Tried to modify a validated product.");
+		else this.#unitPrice = unitPrice;
+	}
+	set quantity(quantity){
+		if(this.validated) console.warn("Tried to modify a validated product.");
+		else this.#quantity = Math.floor(quantity);
+	}
 	/**
 	 * @param {ProductModel} product 
 	 */
 	mergeWith(product){
-		if(!this.isValid())
+		if(this.validated){
+			console.warn("Tried to modify a validated product.");
+			return;
+		} else if(!this.isValid())
 			throw Error("Trying to merge with an invalid Product;")
 
 		if(this.barcode === null) this.barcode = product.barcode;
